@@ -38,7 +38,7 @@ const Signup = () => {
         <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder="password"/><br/>
         <input type="password" value={confirmpassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder="Confirm Password"/><br/>
         <button onClick={register}>Register</button>
-        <Link to="/Signup" >Already have an Account? Sign In here</Link>
+        <Link to="/Signin" >Already have an Account? Sign In here</Link>
 
       </div>
     </>

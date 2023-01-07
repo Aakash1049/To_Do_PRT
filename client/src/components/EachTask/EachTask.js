@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
-moment().format()
 const EachTask = ({ task, setCompletedTasks, completedTasks, isAnyStart, setIsAnyStart }) => {
   const [start, setStart] = useState(true)
   // let dt1 = 0, dt2 = 0
-  const [dt1,setDt1]=useState()
+  const [dt1,setDt1]=useState(task.TimeTaken)
   const[dt2,setDt2]=useState()
   const startAction = () => {
     if (isAnyStart) {
@@ -15,21 +14,22 @@ const EachTask = ({ task, setCompletedTasks, completedTasks, isAnyStart, setIsAn
     setIsAnyStart(true)
     // dt1 = Date.now()%100
     setDt1(moment.utc())
-    console.log(dt1)
+    // console.log(dt1)
 
   }
   useEffect(() => {
-    console.log(moment())
+    // console.log(moment())
     
     
   }, [])
   const pauseHandle = () => {
-    setIsAnyStart(false)
-    setStart(true)
+    
     // dt2 = Date.now()%100
     setDt2(moment.utc())
-    console.log(dt2)
-    let duration=moment.duration(dt2.diff(dt1))
+    // console.log(dt2)
+    let duration=moment.duration(dt1.diff(dt2))
+    var seconds = Math.abs(duration.asSeconds().toFixed(0));
+    console.log(typeof(seconds))
     fetch("/editActivity",{
       method:"PUT",
       headers:{
@@ -38,7 +38,7 @@ const EachTask = ({ task, setCompletedTasks, completedTasks, isAnyStart, setIsAn
       },
       body:JSON.stringify({
         task,
-        TimeTaken:parseInt(duration.asMinutes())%60
+        TimeTaken:`${parseInt(seconds/60)}:${parseInt(seconds%60)}`
       })
     }).then(res=>res.json())
     .then(data=>{
@@ -46,16 +46,55 @@ const EachTask = ({ task, setCompletedTasks, completedTasks, isAnyStart, setIsAn
         alert(data.error)
       }
       else{
-        alert("updated")
+        // alert("updated")
+        setStart(true)
+        setIsAnyStart(false)
+
       }
     })
+    setIsAnyStart(false)
+    setStart(true)
+    console.log("total time",`${parseInt(seconds/60)}:${parseInt(seconds%60)}`)
+
   }
   const EndHandle = () => {
-    console.log(task.Activity)
-    setIsAnyStart(false)
+    // console.log(task.Activity)
+    
+
     // dt2 = Date.now()
-    setDt2(Date.now())
-    setCompletedTasks([...completedTasks, task.Activity])
+    setDt2(moment.utc())
+    // console.log(dt2)
+    let duration=moment.duration(dt1.diff(dt2))
+    var seconds = Math.abs(duration.asSeconds().toFixed(0));
+    // console.log(typeof(seconds))
+    fetch("/editActivity",{
+      method:"PUT",
+      headers:{
+        "Content-type": "application/json",
+        "Authorization":"Bearer "+ localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        task,
+        TimeTaken:`${parseInt(seconds/60)}:${parseInt(seconds%60)}`
+      })
+    }).then(res=>res.json())
+    .then(data=>{
+      if(data.error){
+        alert(data.error)
+      }
+      else{
+        // alert("updated")
+        setStart(true)
+        setIsAnyStart(false)
+
+        console.log("total time",`${parseInt(seconds/60)}:${parseInt(seconds%60)}`)
+        setCompletedTasks([...completedTasks, data.task])
+      }
+      setIsAnyStart(false)
+    setStart(true)
+    })
+
+
   }
   function diff_minutes(dt2, dt1) {
     // var diff=(dt2.getTime()-dt1.getTime())/1000

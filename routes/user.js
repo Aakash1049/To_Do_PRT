@@ -73,9 +73,10 @@ router.post("/AddActivity",isAuthenticated,async(req,res)=>{
 
 router.put("/editActivity",isAuthenticated,async(req,res)=>{
     try {
-       let task=await Activity.findById(req.body.task._id)
-       let updateTask= await Activity.updateOne({_id:req.body.task._id},{$set:{TimeTaken:req.body.TimeTaken}})
-       res.json(task)
+        let updateTask= await Activity.updateOne({_id:req.body.task._id},{$set:{TimeTaken:req.body.TimeTaken}})
+        let task=await Activity.findById(req.body.task._id)
+       console.log(task.TimeTaken)
+       res.json({task})
     } catch (error) {
         res.json({error:error.message})
     }
@@ -87,7 +88,7 @@ router.get("/myActivities",isAuthenticated,async(req,res)=>{
     // console.log(data.posts[0],typeof(data.posts[0]))
     var obj_ids = ids.map(function(id) { return String(id); });
     let data=await Activity.find({"_id":{$in : obj_ids}})
-    console.log(data)
+    // console.log(data)
     res.send(data)
 })
 module.exports=router

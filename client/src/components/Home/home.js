@@ -24,10 +24,10 @@ const Home = () => {
                 alert(data.error)
             }
             else{
-                console.log(typeof(data),data)
+                // console.log(typeof(data),data)
                 setTasks(data)
                 // tasks=data
-                console.log(tasks)
+                // console.log(tasks)
             }
         })
     },[tasks])
@@ -74,7 +74,7 @@ const Home = () => {
                 {
                     completedTasks.map((task)=>{
                         return(
-                            <p>{task}</p>
+                            <p>{task.Activity}&nbsp; &nbsp; {task.TimeTaken}</p>
                         )
                     })
                 }

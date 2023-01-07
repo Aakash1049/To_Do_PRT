@@ -4,7 +4,7 @@ const Schema=mongoose.Schema
 const ActivitySchema = new Schema({
     Activity:String,
     Status:String,
-    TimeTaken:Number,
+    TimeTaken:String,
     Action:String    
 })
 
