@@ -53,8 +53,7 @@ const Home = () => {
                     alert(data.error)
                 }
                 else {
-                  window.location.reload()
-               
+                    setIsAnyStart(false)
                 }
             })
     }
