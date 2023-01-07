@@ -25,8 +25,8 @@ const Home = () => {
             }
             else{
                 console.log(typeof(data),data)
-                setTasks(tasks)
-                tasks=data
+                setTasks(data)
+                // tasks=data
                 console.log(tasks)
             }
         })
