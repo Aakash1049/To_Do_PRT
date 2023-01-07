@@ -1,0 +1,42 @@
+.home .top{
+    height: 100px;
+    background-color: aquamarine;
+    text-align: right;
+    padding-right: 10rem;
+    padding-top: 1rem;
+    font-weight: 800;
+    font-size: 20px;
+}
+.home .content .side{
+    width: 150px;
+    background-color: aqua;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+}
+.home .content .all table{
+    margin-left: 35rem;
+    margin-top: -25rem;
+    text-align: center;
+    border-collapse: collapse;
+
+}
+.home table td, th{
+    border: 1px solid black;
+}
+.home .to-do{
+    font-size: larger;
+    margin-top: 10px;
+}
+.home .logout{
+    margin-top: 20rem;
+    margin-left: -20px;
+
+    margin-right: 10px;
+}
+.home .add{
+    position: absolute;
+    /* /* margin-top: -50rem; */
+    margin-left: 60rem; 
+}
